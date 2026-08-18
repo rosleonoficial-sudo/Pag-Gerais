@@ -135,6 +135,13 @@ export default function WhatsAppModal({ isOpen, onClose }: WhatsAppModalProps) {
               {/* Mega CTA Button */}
               <button 
                 onClick={() => {
+                  if (typeof window !== "undefined" && (window as any).fbq) {
+                    try {
+                      (window as any).fbq("trackSingle", "954536017305711", "Lead", { content_name: "Modal Grupo VIP", value: 0, currency: "BRL" });
+                    } catch (err) {
+                      console.error("Error sending pixel event:", err);
+                    }
+                  }
                   window.open("https://chat.whatsapp.com/FgNiDCz47lA0FGAaDGdHbs?s=cl&p=i&ilr=2", "_blank");
                   onClose();
                 }}

@@ -1,32 +1,18 @@
 import React from 'react';
-import { ShoppingBag, Star, Plus, TrendingUp, Calendar, ArrowUp } from 'lucide-react';
+import { ShoppingBag, Star, Plus, TrendingUp, Calendar } from 'lucide-react';
 
 export const GroupSelectionSection: React.FC = () => {
-  const handleOpenGroup = () => {
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      try {
-        (window as any).fbq("trackSingle", "954536017305711", "Lead", { content_name: "Grupo Ofertas Gerais", value: 0, currency: "BRL" });
-      } catch (err) {
-        console.error("Error sending pixel event:", err);
-      }
-    }
-    window.open("https://chat.whatsapp.com/FgNiDCz47lA0FGAaDGdHbs?s=cl&p=i&ilr=2", "_blank");
-  };
-
   return (
     <section className="w-full max-w-lg mx-auto px-3 py-2 text-zinc-900 select-none">
       {/* 1. Header Title & Subtitle */}
-      <div 
-        onClick={handleOpenGroup}
-        className="flex flex-col items-center text-center mb-3 cursor-pointer group"
-      >
+      <div className="flex flex-col items-center text-center mb-3 select-none">
         <div className="flex items-center gap-1 mb-1 text-emerald-500">
           <Plus className="w-2.5 h-2.5 stroke-[3]" />
           <Star className="w-4 h-4 fill-emerald-500 text-emerald-500" />
           <Plus className="w-2.5 h-2.5 stroke-[3]" />
         </div>
 
-        <h2 className="text-lg sm:text-xl font-black tracking-tight uppercase text-zinc-900 leading-tight group-hover:text-emerald-600 transition-colors">
+        <h2 className="text-lg sm:text-xl font-black tracking-tight uppercase text-zinc-900 leading-tight">
           OFERTAS DE TUDO EM UM SÓ GRUPO
         </h2>
 
@@ -39,10 +25,7 @@ export const GroupSelectionSection: React.FC = () => {
 
       {/* Main Single Card: Grupo Ofertas Gerais */}
       <div className="mb-4">
-        <div 
-          onClick={handleOpenGroup}
-          className="bg-white rounded-2xl border-2 border-emerald-500/80 shadow-md hover:shadow-lg p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 transition-all cursor-pointer active:scale-[0.99] relative overflow-hidden"
-        >
+        <div className="bg-white rounded-2xl border-2 border-emerald-500/80 shadow-md p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 relative overflow-hidden">
           {/* Top highlight ribbon */}
           <div className="absolute top-0 right-0 bg-emerald-500 text-white text-[9px] font-black uppercase px-2.5 py-0.5 rounded-bl-lg shadow-2xs tracking-wider">
             Grupo Oficial
@@ -107,7 +90,7 @@ export const GroupSelectionSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Responsive Community Rosleon Image & Yellow CTA Button */}
+      {/* Responsive Community Rosleon Image */}
       <div className="mt-4 w-full flex flex-col items-center justify-center">
         <div className="w-[75%] max-w-[432px] mx-auto bg-white rounded-3xl border border-zinc-300 overflow-hidden shadow-2xl p-1 sm:p-2 transition-all duration-300">
           <img
@@ -117,16 +100,6 @@ export const GroupSelectionSection: React.FC = () => {
             referrerPolicy="no-referrer"
           />
         </div>
-
-        <button
-          onClick={handleOpenGroup}
-          className="mt-3.5 w-[75%] max-w-[432px] bg-yellow-400 hover:bg-yellow-300 active:scale-95 text-zinc-950 font-black py-3.5 px-6 rounded-full shadow-[0_0_25px_rgba(250,204,21,0.65)] hover:shadow-[0_0_35px_rgba(250,204,21,0.9)] transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer outline-none relative overflow-hidden text-sm sm:text-base md:text-lg tracking-wider uppercase border-2 border-yellow-300 animate-pulse"
-        >
-          <div className="absolute inset-x-0 top-0 h-1/2 bg-white/40 rounded-t-full pointer-events-none" />
-          <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-950 stroke-[3] z-10 animate-bounce" />
-          <span className="z-10 font-black tracking-tight drop-shadow-2xs">ENTRAR AGORA</span>
-          <ArrowUp className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-950 stroke-[3] z-10 animate-bounce" />
-        </button>
       </div>
     </section>
   );
