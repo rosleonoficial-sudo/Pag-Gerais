@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --animate-border-blink: border-blink 2s infinite ease-in-out;
+  --animate-pulse-gentle: pulse-gentle 2.2s infinite ease-in-out;
+
+  @keyframes border-blink {
+    0%, 100% {
+      border-color: rgba(37, 211, 102, 0.3);
+      box-shadow: 0 0 5px rgba(37, 211, 102, 0.2);
+    }
+    50% {
+      border-color: rgba(37, 211, 102, 1);
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.7);
+    }
+  }
+
+  @keyframes pulse-gentle {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 8px 22px rgba(37, 211, 102, 0.35);
+    }
+    50% {
+      transform: scale(1.03);
+      box-shadow: 0 14px 32px rgba(37, 211, 102, 0.65);
+    }
+  }
+
+  @keyframes shine-sweep {
+    0% {
+      transform: translateX(-150%) skewX(-20deg);
+    }
+    30%, 100% {
+      transform: translateX(250%) skewX(-20deg);
+    }
+  }
+}
+
+.animate-shine-sweep {
+  animation: shine-sweep 3.5s infinite ease-in-out;
+}
+
+/* Subtle dark text outline / shadow for button text readability */
+.text-dark-stroke {
+  -webkit-text-stroke: 0.3px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.8);
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Remix pagina de captura - CORRETA",
+  "description": "Página oficial da promoção Black Friday Estendida - Garimpei com desconto de até 70% em qualquer produto e depoimentos de membros.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
