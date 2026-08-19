@@ -12,6 +12,10 @@ const faqData: FaqItem[] = [
     answer: "Quando aparecer “Use o cupom”, copie o código enviado no grupo. O preço pode abrir maior no link. Antes de pagar, procure a opção “Cupom” e aplique o código."
   },
   {
+    question: "Como aplicar o cupom do Mercado Livre?",
+    answer: "Ao abrir a oferta, o preço pode aparecer mais alto. Isso é normal.\n\nSiga a compra até chegar em Forma de pagamento. Depois, role para baixo e toque em “Inserir cupom”.\n\nDigite o código que enviamos no grupo em “Use o cupom” e aplique. Pronto! O desconto será calculado no valor da compra."
+  },
+  {
     question: "Como usar cupom na Amazon?",
     answer: "Quando disponível, o cupom geralmente aparece abaixo do preço. Clique em “Resgatar” e siga a compra normalmente."
   },
@@ -79,7 +83,7 @@ export const FaqSection: React.FC = () => {
               </button>
 
               {isOpen && (
-                <div className="px-3.5 pb-3 pt-1 text-xs sm:text-[13px] text-zinc-700 leading-relaxed border-t border-zinc-100 bg-zinc-50/50">
+                <div className="px-3.5 pb-3 pt-1 text-xs sm:text-[13px] text-zinc-700 leading-relaxed border-t border-zinc-100 bg-zinc-50/50 whitespace-pre-line">
                   {item.answer}
                 </div>
               )}

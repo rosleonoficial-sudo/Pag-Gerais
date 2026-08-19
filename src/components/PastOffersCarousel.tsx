@@ -23,15 +23,34 @@ export const PastOffersCarousel: React.FC = () => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
+  // Mouse drag state
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollStart, setScrollStart] = useState(0);
+  const [hasDragged, setHasDragged] = useState(false);
+
   const checkScroll = () => {
     if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10);
+    const { scrollLeft, scrollWidth, clientWidth, children } = scrollRef.current;
+    
+    setCanScrollLeft(scrollLeft > 5);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
 
-    const cardWidth = clientWidth * 0.76;
-    const newIndex = Math.round(scrollLeft / (cardWidth || 280));
-    setActiveIndex(Math.min(Math.max(newIndex, 0), OFFERS.length - 1));
+    const containerLeft = scrollRef.current.offsetLeft;
+    let closestIndex = 0;
+    let minDiff = Infinity;
+
+    Array.from(children).forEach((child, index) => {
+      const el = child as HTMLElement;
+      const childRelativeLeft = el.offsetLeft - containerLeft;
+      const diff = Math.abs(childRelativeLeft - scrollLeft);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIndex = index;
+      }
+    });
+
+    setActiveIndex(closestIndex);
   };
 
   useEffect(() => {
@@ -39,22 +58,68 @@ export const PastOffersCarousel: React.FC = () => {
     if (el) {
       el.addEventListener('scroll', checkScroll, { passive: true });
       checkScroll();
+      window.addEventListener('resize', checkScroll);
     }
     return () => {
       if (el) el.removeEventListener('scroll', checkScroll);
+      window.removeEventListener('resize', checkScroll);
     };
   }, []);
 
-  const scroll = (direction: 'left' | 'right') => {
+  const scrollToCard = (index: number) => {
     if (!scrollRef.current) return;
-    const scrollAmount = scrollRef.current.clientWidth * 0.8;
-    scrollRef.current.scrollBy({
-      left: direction === 'left' ? -scrollAmount : scrollAmount,
-      behavior: 'smooth'
-    });
+    const children = Array.from(scrollRef.current.children);
+    const targetIndex = Math.max(0, Math.min(index, children.length - 1));
+    const targetCard = children[targetIndex] as HTMLElement;
+
+    if (targetCard) {
+      const containerLeft = scrollRef.current.offsetLeft;
+      const targetLeft = targetCard.offsetLeft - containerLeft;
+      scrollRef.current.scrollTo({
+        left: targetLeft,
+        behavior: 'smooth'
+      });
+    }
   };
 
-  const handleScrollToButtons = () => {
+  const scroll = (direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      scrollToCard(activeIndex - 1);
+    } else {
+      scrollToCard(activeIndex + 1);
+    }
+  };
+
+  // Mouse drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    setIsMouseDown(true);
+    setHasDragged(false);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollStart(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseLeaveOrUp = () => {
+    setIsMouseDown(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDown || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    if (Math.abs(walk) > 5) {
+      setHasDragged(true);
+    }
+    scrollRef.current.scrollLeft = scrollStart - walk;
+  };
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (hasDragged) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
     const el = document.getElementById('action-buttons');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -101,12 +166,16 @@ export const PastOffersCarousel: React.FC = () => {
         {/* Scroll Snap Track */}
         <div
           ref={scrollRef}
-          className="flex gap-3 sm:gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth py-1 px-1 scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]"
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeaveOrUp}
+          onMouseUp={handleMouseLeaveOrUp}
+          onMouseMove={handleMouseMove}
+          className="flex gap-3 sm:gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth py-1 px-1 pr-6 sm:pr-12 scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] cursor-grab active:cursor-grabbing"
         >
           {OFFERS.map((offer, index) => (
             <div
               key={offer.id}
-              onClick={handleScrollToButtons}
+              onClick={handleCardClick}
               className="w-[80%] min-[400px]:w-[76%] sm:w-[280px] md:w-[320px] shrink-0 snap-start bg-white rounded-2xl border border-zinc-200/80 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden cursor-pointer group flex flex-col"
             >
               <div className="w-full relative bg-zinc-50 overflow-hidden rounded-2xl">
@@ -116,7 +185,7 @@ export const PastOffersCarousel: React.FC = () => {
                   loading={index < 2 ? "eager" : "lazy"}
                   decoding="async"
                   referrerPolicy="no-referrer"
-                  className="w-full h-auto object-cover rounded-2xl group-hover:scale-[1.02] transition-transform duration-300"
+                  className="w-full h-auto object-cover rounded-2xl group-hover:scale-[1.02] transition-transform duration-300 pointer-events-none"
                 />
               </div>
             </div>
@@ -129,29 +198,6 @@ export const PastOffersCarousel: React.FC = () => {
         <span className="text-[11px] sm:text-xs font-medium text-zinc-400 tracking-wide select-none">
           ← Arraste para ver mais →
         </span>
-      </div>
-
-      {/* Dots Progress Indicator */}
-      <div className="flex items-center justify-center gap-1.5 mt-2.5">
-        {OFFERS.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              if (!scrollRef.current) return;
-              const cardWidth = scrollRef.current.clientWidth * 0.76;
-              scrollRef.current.scrollTo({
-                left: i * cardWidth,
-                behavior: 'smooth'
-              });
-            }}
-            aria-label={`Ir para oferta ${i + 1}`}
-            className={`transition-all duration-300 rounded-full cursor-pointer ${
-              i === activeIndex
-                ? 'w-5 h-1.5 bg-emerald-500'
-                : 'w-1.5 h-1.5 bg-zinc-300 hover:bg-zinc-400'
-            }`}
-          />
-        ))}
       </div>
     </section>
   );
