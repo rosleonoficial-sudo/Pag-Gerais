@@ -14,7 +14,7 @@ import GroupCTAButton from "./components/GroupCTAButton";
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const GROUP_WHATSAPP_URL = "https://chat.whatsapp.com/FgNiDCz47lA0FGAaDGdHbs?s=cl&p=i&ilr=2";
+  const GROUP_WHATSAPP_URL = "https://chat.whatsapp.com/KfEE4H4PTedJS4Q4uwlgio";
 
   // Centralized WhatsApp Group Click Handler with Meta Pixel Lead Event
   const handleJoinGroup = (e: React.MouseEvent, ctaName: string) => {

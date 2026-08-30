@@ -142,7 +142,7 @@ export default function WhatsAppModal({ isOpen, onClose }: WhatsAppModalProps) {
                       console.error("Error sending pixel event:", err);
                     }
                   }
-                  window.open("https://chat.whatsapp.com/FgNiDCz47lA0FGAaDGdHbs?s=cl&p=i&ilr=2", "_blank");
+                  window.open("https://chat.whatsapp.com/KfEE4H4PTedJS4Q4uwlgio", "_blank");
                   onClose();
                 }}
                 className="w-full bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.98] text-white font-extrabold text-base py-4 rounded-full flex items-center justify-center gap-2.5 shadow-[0_4px_16px_rgba(37,211,102,0.35)] transition-all cursor-pointer animate-pulse-gentle"
