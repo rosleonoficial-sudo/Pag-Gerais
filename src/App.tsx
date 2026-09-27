@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import InteractivePlayer from "./components/InteractivePlayer";
 import LiveViewerCounter from "./components/LiveViewerCounter";
 import GroupNotification from "./components/GroupNotification";
-import ReviewList from "./components/ReviewList";
 import AboutMe from "./components/AboutMe";
 import ReturnPolicySecurity from "./components/ReturnPolicySecurity";
 import FloatingHelpButton from "./components/FloatingHelpButton";
@@ -114,24 +113,9 @@ export default function App() {
           />
         </div>
 
-        {/* 5. Light Gray Panel - Testimonials and Social Reviews Section */}
+        {/* 5. Light Gray Panel */}
         <section className="w-full bg-[#EEEEEE] py-6 md:py-8 text-center border-t border-zinc-200/50">
           <div className="w-full max-w-4xl mx-auto px-4">
-            {/* Title review badge */}
-            <h2 className="font-display font-black text-lg sm:text-2xl lg:text-3xl text-zinc-900 tracking-tight uppercase mb-4 flex items-center justify-center gap-2">
-              Veja os depoimentos dos nossos seguidores e inscritos do canal.
-            </h2>
-
-            {/* List of high fidelity comments matching the provided screenshot */}
-            <ReviewList />
-
-            {/* CTA 4 — APÓS OS DEPOIMENTOS */}
-            <GroupCTAButton 
-              text="ENTRAR NO GRUPO DE OFERTAS" 
-              onClick={(e) => handleJoinGroup(e, "CTA 4 - Apos Depoimentos")}
-              className="mt-5 mb-5"
-            />
-
             {/* Compact FAQ / Dúvidas Frequentes Accordion */}
             <FaqSection />
 

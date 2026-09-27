@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import { ShieldCheck, Award, Sparkles, UserCheck, Camera, Upload } from "lucide-react";
 
 export default function AboutMe() {
-  const DEFAULT_PHOTO = "https://i.postimg.cc/YSGsXBpB/Editada.png";
+  const DEFAULT_PHOTO = "/images/rosleon-profile.webp";
   const [photoUrl, setPhotoUrl] = useState<string>(DEFAULT_PHOTO);
 
-  // Load saved custom photo from localStorage if present
+  // Load saved custom photo from localStorage if present (ignoring obsolete postimg URLs)
   useEffect(() => {
     try {
       const savedPhoto = localStorage.getItem("rosleon_user_photo");
-      if (savedPhoto) {
+      if (savedPhoto && !savedPhoto.includes("postimg.cc")) {
         setPhotoUrl(savedPhoto);
+      } else if (savedPhoto && savedPhoto.includes("postimg.cc")) {
+        localStorage.removeItem("rosleon_user_photo");
+        setPhotoUrl(DEFAULT_PHOTO);
       }
     } catch (e) {
       console.error("Error reading photo from localStorage", e);
@@ -65,6 +68,8 @@ export default function AboutMe() {
               src={photoUrl} 
               alt="Leonardo Mey - ROSLEON" 
               className="w-full h-full object-cover object-top"
+              loading="lazy"
+              decoding="async"
               referrerPolicy="no-referrer"
             />
 

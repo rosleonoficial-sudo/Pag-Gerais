@@ -2,19 +2,21 @@ import React, { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const OFFERS = [
-  { id: 1, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725032/1.png", title: "Oferta Publicada 1" },
-  { id: 2, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725032/10.png", title: "Oferta Publicada 2" },
-  { id: 3, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725032/11.png", title: "Oferta Publicada 3" },
-  { id: 4, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725032/12.png", title: "Oferta Publicada 4" },
-  { id: 5, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725032/4.png", title: "Oferta Publicada 5" },
-  { id: 6, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725033/3.png", title: "Oferta Publicada 6" },
-  { id: 7, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725033/2.png", title: "Oferta Publicada 7" },
-  { id: 8, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725033/5.png", title: "Oferta Publicada 8" },
-  { id: 9, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725033/6.png", title: "Oferta Publicada 9" },
-  { id: 10, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725033/13.png", title: "Oferta Publicada 10" },
-  { id: 11, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725033/9.png", title: "Oferta Publicada 11" },
-  { id: 12, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725034/7.png", title: "Oferta Publicada 12" },
-  { id: 13, src: "https://res.cloudinary.com/jfqsykts/image/upload/v1786725034/8.png", title: "Oferta Publicada 13" },
+  { id: 1, src: "/images/13.webp", title: "Caixa de Som Boombox Aiwa" },
+  { id: 2, src: "/images/4.webp", title: "Tênis Nike Uplift SC" },
+  { id: 3, src: "/images/1.webp", title: "Whey Protein Max Titanium" },
+  { id: 4, src: "/images/12.webp", title: "Smart TV Philips 50\" 4K" },
+  { id: 5, src: "/images/7.webp", title: "Caixa de Som LG XBOOM" },
+  { id: 6, src: "/images/6.webp", title: "Tênis Puma Flyer Runner" },
+  { id: 7, src: "/images/0001 (1).webp", title: "Perfume 212 Men Carolina Herrera" },
+  { id: 8, src: "/images/3.webp", title: "Kit 2 Whey Protein XPro" },
+  { id: 9, src: "/images/8.webp", title: "Caixa de Som JBL Partybox" },
+  { id: 10, src: "/images/5.webp", title: "Tênis Olympikus Voa 3" },
+  { id: 11, src: "/images/0001 (2).webp", title: "Bicicleta Elétrica Altrax" },
+  { id: 12, src: "/images/9.webp", title: "Caixa de Som JBL Boombox" },
+  { id: 13, src: "/images/0001 (3).webp", title: "Tênis Adidas Adizero Drive RC" },
+  { id: 14, src: "/images/11.webp", title: "Ar-condicionado Split Inverter" },
+  { id: 15, src: "/images/0001 (4).webp", title: "Tênis Nike Uplift Masculino" },
 ];
 
 export const PastOffersCarousel: React.FC = () => {
@@ -182,7 +184,7 @@ export const PastOffersCarousel: React.FC = () => {
                 <img
                   src={offer.src}
                   alt={offer.title}
-                  loading={index < 2 ? "eager" : "lazy"}
+                  loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"
                   className="w-full h-auto object-cover rounded-2xl group-hover:scale-[1.02] transition-transform duration-300 pointer-events-none"
