@@ -4,9 +4,10 @@ import { X, MessageSquare, CheckCircle2, AlertCircle, Sparkles, Users } from "lu
 interface WhatsAppModalProps {
   isOpen: boolean;
   onClose: () => void;
+  groupUrl?: string;
 }
 
-export default function WhatsAppModal({ isOpen, onClose }: WhatsAppModalProps) {
+export default function WhatsAppModal({ isOpen, onClose, groupUrl }: WhatsAppModalProps) {
   const [loadingStep, setLoadingStep] = useState(0);
   const [isVerifying, setIsVerifying] = useState(true);
 
@@ -142,7 +143,7 @@ export default function WhatsAppModal({ isOpen, onClose }: WhatsAppModalProps) {
                       console.error("Error sending pixel event:", err);
                     }
                   }
-                  window.open("https://chat.whatsapp.com/KfEE4H4PTedJS4Q4uwlgio", "_blank");
+                  window.open(groupUrl || "https://chat.whatsapp.com/LHlOvAQouIV1IsPk7LI6Rr?s=cl&p=i&mlu=4", "_blank");
                   onClose();
                 }}
                 className="w-full bg-[#25D366] hover:bg-[#20ba59] active:scale-[0.98] text-white font-extrabold text-base py-4 rounded-full flex items-center justify-center gap-2.5 shadow-[0_4px_16px_rgba(37,211,102,0.35)] transition-all cursor-pointer animate-pulse-gentle"
