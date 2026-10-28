@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import InteractivePlayer from "./components/InteractivePlayer";
 import LiveViewerCounter from "./components/LiveViewerCounter";
 import GroupNotification from "./components/GroupNotification";
 import AboutMe from "./components/AboutMe";
@@ -72,12 +71,9 @@ export default function App() {
         </p>
       </header>
 
-      {/* 3. Interactive Video Section */}
+      {/* 3. Main Action Section */}
       <main className="flex-grow w-full">
-        {/* Gien Liu Video Reel Container */}
-        <InteractivePlayer />
-
-        {/* CTA 1 — JÁ EXISTENTE (Abaixo do Vídeo) */}
+        {/* CTA 1 — Principal */}
         <div id="action-buttons" className="w-full mt-4 mb-4">
           <GroupCTAButton 
             text="GRUPO OFERTAS GERAIS" 
